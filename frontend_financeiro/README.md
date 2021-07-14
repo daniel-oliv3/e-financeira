@@ -11,4 +11,5 @@ Rodar o projeto React
 Gerenciar as rotas
 ### npm install react-router-dom
 
-
+Transforma o CSS em componentes
+### npm install --save styled-components

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { Container, ConteudoTitulo, Titulo, ButtonSuccess, BotaoAcao, AnteriorProximo, ButtonPrimary, Table, TextDanger, TextSuccess } from '../../styles/custom_adm';
+
 export const Home = () => {
 
 const [data, setData] = useState([]);    
@@ -74,14 +76,22 @@ useEffect(() => {
 }, []);
 
     return (
-        <div>
-            <h1>Listar Situação Financeira</h1>
-            <p>Ano atual: {dataView.ano}</p>
-            <p>Mês atual: {dataView.mes}</p>
-            <button type="button" onClick={() => anterior() }>Anterior</button>
-            <button type="button" onClick={() => proximo() }>Proximo</button>
+        <Container>
+            <ConteudoTitulo>
+                <Titulo>Listar Situação Financeira</Titulo>
+                <BotaoAcao>
+                    <ButtonSuccess>Cadastrar</ButtonSuccess>
+                </BotaoAcao>    
+            </ConteudoTitulo>
 
-            <table>
+            <AnteriorProximo>
+                <ButtonPrimary type="button" onClick={() => anterior() }>Anterior</ButtonPrimary>
+                <span>{dataView.mes + "/" + dataView.ano}</span>
+                <ButtonPrimary type="button" onClick={() => proximo() }>Proximo</ButtonPrimary>
+            </AnteriorProximo>
+               
+
+            <Table>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -96,7 +106,7 @@ useEffect(() => {
                         <tr key={item.id}>
                             <td>{item.id}</td>
                             <td>{item.nome}</td>
-                            <td>{item.tipo === 1 ? <p>Pagamento</p>: <p>Recibido</p>}</td>
+                            <td>{item.tipo === 1 ? <TextDanger>Pagamento</TextDanger>: <TextSuccess>Recibido</TextSuccess>}</td>
                             <td>{item.situacao}</td>
                             <td>{item.valor}</td>
                         </tr>
@@ -111,7 +121,7 @@ useEffect(() => {
                         <td>586.15</td>
                     </tr>
                 </tfoot>
-            </table>
-        </div>
+            </Table>
+        </Container>
     );
 };

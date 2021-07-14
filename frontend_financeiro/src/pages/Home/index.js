@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Home = () => {
+
+const [data, setData] = useState([]);    
 
 var dataAtual = new Date();
 var ano = dataAtual.getFullYear();
@@ -40,6 +42,37 @@ const proximo = async () => {
     }
 };
 
+const listarExtrato = async e => {
+    var valores = [
+        {
+            "id": 3,
+            "nome": "Água",
+            "valor": 347,
+            "tipo": 1,
+            "situacao": "Pago"
+        },
+        {
+            "id": 2,
+            "nome": "Luz",
+            "valor": 347.68,
+            "tipo": 1,
+            "situacao": "Pendente"
+        },
+        {
+            "id": 1,
+            "nome": "Salário",
+            "valor": 1100,
+            "tipo": 3,
+            "situacao": ""
+        }
+    ]
+    setData(valores);
+}
+
+useEffect(() => {
+    listarExtrato();
+}, []);
+
     return (
         <div>
             <h1>Listar Situação Financeira</h1>
@@ -47,6 +80,38 @@ const proximo = async () => {
             <p>Mês atual: {dataView.mes}</p>
             <button type="button" onClick={() => anterior() }>Anterior</button>
             <button type="button" onClick={() => proximo() }>Proximo</button>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Situação</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map(item => (
+                        <tr key={item.id}>
+                            <td>{item.id}</td>
+                            <td>{item.nome}</td>
+                            <td>{item.tipo === 1 ? <p>Pagamento</p>: <p>Recibido</p>}</td>
+                            <td>{item.situacao}</td>
+                            <td>{item.valor}</td>
+                        </tr>
+                    ))}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>586.15</td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     );
 };
